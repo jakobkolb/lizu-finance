@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+jupyterlab = "*"
+pandas = "*"
+gspread = "*"
+pytest = "*"
+bokeh = "*"
+pandas-bokeh = "*"
+returns = "*"
+setuptools = "*"
+pytest-watch = "*"
+autopep8 = "*"
+numpy = "*"
+oauth2client = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
