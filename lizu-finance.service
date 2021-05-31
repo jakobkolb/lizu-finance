@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn instance to serve lizu-finance
+After=network.target
+
+[Service]
+User=kolb
+Group=www-data
+
+WorkingDirectory=/home/kolb/lizu-finance
+Environment="PATH=/home/kolb/lizu-finance/lizu/bin"
+ExecStart=/home/kolb/lizu-finance/lizu/bin/gunicorn --workers 3 --bind unix:lizu-finance.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
