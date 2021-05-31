@@ -15,8 +15,12 @@ basic_auth = BasicAuth(app)
 @basic_auth.required
 def hello():
     return "<h1 style='color:blue'>Hello There!</h1>"
-    # tag = server_document(url='/bokeh', relative_urls=True)
-    # return render_template('index.html', tag=tag)
+
+@app.route("/scenarios")
+@basic_auth.required
+def bokeh():
+    tag = server_document(url='/bokeh', relative_urls=True)
+    return render_template('index.html', tag=tag)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

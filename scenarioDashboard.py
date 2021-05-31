@@ -2,8 +2,8 @@ import gspread
 import pandas as pd
 import pandas_bokeh
 from bokeh.layouts import column, row
-from bokeh.io import output_file, show
-from bokeh.plotting import figure, curdoc
+from bokeh.plotting import figure
+from bokeh.server.server import Server
 
 from src.helpers import connectToSheet
 from src.guiElements import createScenario
@@ -22,16 +22,24 @@ plot = figure(
     sizing_mode="stretch_both",
 )
 
-
-curdoc().add_root(
-    column(
-        row(
-            createScenario(sheet, plot, color="green", label="sc1"),
-            createScenario(sheet, plot, color="blue", label="sc2"),
-            createScenario(sheet, plot, color="grey", label="sc3"),
-            sizing_mode="stretch_both",
-        ),
-        row(plot, sizing_mode="scale_width"),
-        sizing_mode="scale_width",
+def run(doc):
+    doc.add_root(
+        column(
+            row(
+                createScenario(sheet, plot, color="green", label="sc1"),
+                createScenario(sheet, plot, color="blue", label="sc2"),
+                createScenario(sheet, plot, color="grey", label="sc3"),
+                sizing_mode="stretch_both",
+            ),
+            row(plot, sizing_mode="scale_width"),
+            sizing_mode="scale_width",
+        )
     )
-)
+
+# configure and run bokeh server
+kws = {'port': 5100, 'prefix': '/bokeh', 'allow_websocket_origin': ['167.172.166.169']}
+server = Server(run, **kws)
+server.start()
+if __name__ == '__main__':
+    server.io_loop.add_callback(server.show, '/')
+    server.io_loop.start()
