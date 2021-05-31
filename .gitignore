@@ -1,5 +1,16 @@
+# api secrets
+
 api-credentials.json
+.gitsecret/keys/random_seed
+
+# local cache files and editor config
 
 .ipynb_checkpoints
+.pytest_cache
+.vscode
+
+# virtual env
+
+lizu-finance
 
 layout.html
